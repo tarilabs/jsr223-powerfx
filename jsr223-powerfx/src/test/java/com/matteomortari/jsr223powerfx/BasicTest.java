@@ -32,7 +32,7 @@ public class BasicTest {
         stubFor(post("/eval")
                 .willReturn(ok()
                     .withHeader("Content-Type", "application/json")
-                    .withBody("{\"evaluation\": 3}")));
+                    .withBody("{\"result\": 3}")));
         ScriptEngineManager MANAGER = new ScriptEngineManager();
         for (ScriptEngineFactory factory : MANAGER.getEngineFactories()) {
             printScriptEngineFactoryInfo(factory);

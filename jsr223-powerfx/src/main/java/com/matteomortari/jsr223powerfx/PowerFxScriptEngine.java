@@ -16,6 +16,8 @@ import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.matteomortari.jsr223powerfx.model.EvalRequest;
+import com.matteomortari.jsr223powerfx.model.EvalResponse;
 
 import org.apache.hc.client5.http.fluent.Content;
 import org.apache.hc.client5.http.fluent.Request;
@@ -50,16 +52,16 @@ public class PowerFxScriptEngine extends AbstractScriptEngine {
             Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
             String contextJSON = MAPPER.writeValueAsString(bindings);
             LOG.debug(contextJSON);
-            Map<String, Object> payload = new LinkedHashMap<>();
-            payload.put("context", contextJSON);
-            payload.put("expression", script);
+            EvalRequest payload = new EvalRequest();
+            payload.setContext(contextJSON);
+            payload.setExpression(script);
             String payloadJSON = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(payload);
             Content responseContent = Request.post(this.serverUrl)
                 .bodyString(payloadJSON, ContentType.APPLICATION_JSON)
                 .execute().returnContent();
             String responseJSON = responseContent.asString();
-            Map<?, ?> responseValue = MAPPER.readValue(responseJSON, Map.class);
-            Object evaluation = responseValue.get("evaluation");
+            EvalResponse responseValue = MAPPER.readValue(responseJSON, EvalResponse.class);
+            Object evaluation = MAPPER.readValue(responseValue.getResult(), Object.class);
             LOG.debug("{}", evaluation);
             return evaluation;
         } catch (Exception e) {
