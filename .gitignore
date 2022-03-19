@@ -3,3 +3,5 @@
 .ionide
 bin
 obj
+.vscode
+target
