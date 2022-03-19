@@ -1,8 +1,6 @@
 package com.matteomortari.jsr223powerfx;
 
 import java.io.Reader;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import javax.script.AbstractScriptEngine;

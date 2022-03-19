@@ -17,4 +17,5 @@ type EvalRequest =
 type EvalResponse = 
     {
         result : string
+        error: string
     }

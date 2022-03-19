@@ -18,8 +18,12 @@ let webApp =
     choose [
         subRoute "/eval"
             (choose [
-                GET >=> handleGetHello
                 POST >=> handleEval
+                GET >=> handleGetHello
+            ])
+        subRoute "/lsp"
+            (choose [
+                POST >=> handleLsp
             ])
         setStatusCode 404 >=> text "Not Found" ]
 
@@ -37,9 +41,10 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 
 let configureCors (builder : CorsPolicyBuilder) =
     builder
-        .WithOrigins(
-            "http://localhost:5000",
-            "https://localhost:5001")
+        // .WithOrigins(
+        //     "http://localhost:5000",
+        //     "https://localhost:5001")
+       .AllowAnyOrigin()
        .AllowAnyMethod()
        .AllowAnyHeader()
        |> ignore
