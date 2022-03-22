@@ -40,6 +40,17 @@ bindings.put("b", 2);
 Object result = engine.eval("a+b", bindings); // result = 3
 ```
 
+# FAQ
+
+Q: Why F# ?<br/>
+A: No particular reason, I've always been looking for an excuse to experiment using it; luck is being prepared when the opportunity comes :)
+
+Q: Is it "production-ready"?<br/>
+A: This is a [chabuduo](https://youtube.com/clip/UgkxeVe0fr81gBBZXzQ1LG2189Z1QrYspmXt) MVP working-PoC
+
+Q: I have a feedback/question?<br/>
+A: Feel free to contact me!
+
 # References
 
 Helpful references I've used while building this experiment
