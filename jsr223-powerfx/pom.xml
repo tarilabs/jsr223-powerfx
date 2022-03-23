@@ -10,7 +10,7 @@
     <artifactId>jsr223-powerfx</artifactId>
     <packaging>jar</packaging>
 
-    <name>jsr223-powerfx</name>
+    <name>${project.artifactId}</name>
     <dependencies>
         <dependency> 
             <groupId>org.slf4j</groupId>

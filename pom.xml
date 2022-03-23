@@ -7,17 +7,52 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>jsr223-powerfx-parent</name>
-    <url>https://matteomortari.com</url>
+    <name>${project.artifactId}</name>
+    <description>A JSR-223 implementation for evaluating Power Fx formulas (expression) by making use of a server implemented on F# and .NET platform.</description>
+    <url>https://github.com/tarilabs/jsr223-powerfx</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>8</maven.compiler.release>
     </properties>
+
     <modules>
         <module>jsr223-powerfx</module>
         <module>jsr223-powerfx-integration-tests</module>
     </modules>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Matteo Mortari</name>
+            <email>matteo.mortari@gmail.com</email>
+            <organization>Matteo Mortari</organization>
+            <organizationUrl>https://matteomortari.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/tarilabs/jsr223-powerfx.git</connection>
+        <developerConnection>scm:git:ssh://github.com:tarilabs/jsr223-powerfx.git</developerConnection>
+        <url>http://github.com/tarilabs/jsr223-powerfx/tree/master</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -33,23 +68,23 @@
                 <artifactId>httpclient5-fluent</artifactId>
                 <version>5.1.3</version>
             </dependency>
-            <dependency> 
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.36</version>
             </dependency>
-            <dependency> 
+            <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>1.2.11</version>
             </dependency>
-			<dependency>
-				<groupId>org.junit</groupId>
-				<artifactId>junit-bom</artifactId>
-				<version>5.8.2</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.8.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
@@ -85,9 +120,9 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
-			</plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.2</version>
@@ -113,6 +148,53 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.12</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
