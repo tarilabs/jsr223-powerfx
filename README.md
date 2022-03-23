@@ -29,6 +29,17 @@ docker run -p 80:5000 jsr223-powerfx-server
 
 Include this dependency in your Java project.
 
+Using Maven:
+
+```xml
+<dependency>
+    <groupId>com.matteomortari</groupId>
+    <artifactId>jsr223-powerfx</artifactId>
+    <version>0.1</version>
+    <scope>runtime</scope>
+</dependency>
+```
+
 Example usage:
 
 ```java
